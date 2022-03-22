@@ -1,0 +1,415 @@
+<po-page-default class="app-portal app-portal-home">
+  <po-widget class="widget-sticky po-lg-12 po-pl-2 po-pr-2">
+    <div class="container">
+      <span class="arrow-back po-button po-button-link" [routerLink]="['/']" (click)="resetCss()"
+        ><a class="text-back">Voltar</a></span
+      >
+
+      <label for="color" class="po-mr-2 po-ml-1">Cor primária:</label>
+      <input class="style-inputColor" type="color" id="colorbrandP" [formControl]="brandFormP.get('colorAction')" />
+
+      <div class="vertical-line"></div>
+
+      <label for="color" class="po-mr-2 po-ml-1"> Cor secundária:</label>
+      <input class="style-inputColor" type="color" id="colorbrandS" [formControl]="brandFormS.get('colorAction')" />
+
+      <div class="vertical-line"></div>
+
+      <label for="color" class="po-mr-2 po-ml-1"> Cor terciária:</label>
+      <input class="style-inputColor" type="color" id="colorbrandT" [formControl]="brandFormT.get('colorAction')" />
+
+      <div class="vertical-line"></div>
+
+      <button class="po-button po-button-primary-theme" (click)="resetCss()">Reset css</button>
+
+      <div style="margin-left: auto">
+        <button
+          type="button"
+          [ngClass]="!verifyCss() ? 'btn-disabled' : ''"
+          class="po-button po-button-secondary-theme"
+          (click)="openGetcss()"
+          [disabled]="!verifyCss()"
+        >
+          Ver css
+        </button>
+
+        <button class="po-button po-button-secondary-theme" (click)="pageSlide.open()">Configuração</button>
+      </div>
+    </div>
+  </po-widget>
+
+  <po-widget
+    [class.hide]="!botaoDefaultView && !botaoPrimaryView && !botaoLinkView && !checkboxView && !switchView"
+    class="po-lg-2 po-mb-1 po-p-2"
+  >
+    <div [class.hide]="!botaoDefaultView">
+      <po-divider p-label="Botão secundário"></po-divider>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorD" class="po-mr-2 po-ml-1">Cor da borda: </label>
+        <input type="color" id="colorD" class="style-inputColor" [formControl]="buttonFormDefault.get('color')" />
+      </div>
+      <div class="container-space-between po-mb-1">
+        <label for="borderColorD" class="po-mr-2 po-ml-1">Cor do texto: </label>
+        <input
+          type="color"
+          id="borderColorD"
+          class="style-inputColor"
+          [formControl]="buttonFormDefault.get('textColor')"
+        />
+      </div>
+      <div class="container-space-between po-mb-1">
+        <label for="colorHoverD" class="po-mr-2 po-ml-1">Cor da borda Hover: </label>
+        <input
+          type="color"
+          id="colorHoverD"
+          class="style-inputColor"
+          [formControl]="buttonFormDefault.get('colorHover')"
+        />
+      </div>
+      <div class="container-space-between po-mb-1">
+        <label for="textColorD" class="po-mr-2 po-ml-1">Cor do texto Hover: </label>
+        <input
+          type="color"
+          id="textColorD"
+          class="style-inputColor"
+          [formControl]="buttonFormDefault.get('textColorHover')"
+        />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorBackgroundHover" class="po-mr-2 po-ml-1">Cor do background Hover: </label>
+        <input
+          type="color"
+          id="colorBackgroundHover"
+          class="style-inputColor"
+          [formControl]="buttonFormDefault.get('colorBackgroundHover')"
+        />
+      </div>
+    </div>
+
+    <div [class.hide]="!botaoPrimaryView">
+      <po-divider p-label="Botão primário"></po-divider>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorP" class="po-mr-2 po-ml-1">Cor principal: </label>
+        <input type="color" id="colorP" class="style-inputColor" [formControl]="buttonFormPrimary.get('color')" />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="borderColorP" class="po-mr-2 po-ml-1">Cor da borda: </label>
+        <input
+          type="color"
+          id="borderColorP"
+          class="style-inputColor"
+          [formControl]="buttonFormPrimary.get('borderColor')"
+        />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="textColorP" class="po-mr-2 po-ml-1">Cor do texto: </label>
+        <input
+          type="color"
+          id="textColorP"
+          class="style-inputColor"
+          [formControl]="buttonFormPrimary.get('textColor')"
+        />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorHoverP" class="po-mr-2 po-ml-1">Cor principal Hover: </label>
+        <input
+          type="color"
+          id="colorHoverP"
+          class="style-inputColor"
+          [formControl]="buttonFormPrimary.get('colorHover')"
+        />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="textColorHoverP" class="po-mr-2 po-ml-1">Cor do texto Hover: </label>
+        <input
+          type="color"
+          id="textColorHoverP"
+          class="style-inputColor"
+          [formControl]="buttonFormPrimary.get('textColorHover')"
+        />
+      </div>
+    </div>
+
+    <div [class.hide]="!botaoLinkView">
+      <po-divider p-label="Botão terciário"></po-divider>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorL" class="po-mr-2 po-ml-1">Cor principal: </label>
+        <input type="color" id="colorL" class="style-inputColor" [formControl]="buttonFormLink.get('color')" />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorHoverL" class="po-mr-2 po-ml-1">Cor do texto Hover: </label>
+        <input
+          type="color"
+          id="colorHoverL"
+          class="style-inputColor"
+          [formControl]="buttonFormLink.get('colorHover')"
+        />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorBackgroundHoverL" class="po-mr-2 po-ml-1">Cor do background Hover: </label>
+        <input
+          type="color"
+          id="colorBackgroundHoverL"
+          class="style-inputColor"
+          [formControl]="buttonFormLink.get('colorBackgroundHover')"
+        />
+      </div>
+    </div>
+
+    <div [class.hide]="!checkboxView">
+      <po-divider p-label="Checkbox"></po-divider>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorCheckbox" class="po-mr-2 po-ml-1">Cor principal: </label>
+        <input type="color" id="colorCheckbox" class="style-inputColor" [formControl]="checkBoxForm.get('color')" />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="shadowColorCheckbox" class="po-mr-2 po-ml-1">Cor do box shadow: </label>
+        <input
+          type="color"
+          id="shadowColorCheckbox"
+          class="style-inputColor"
+          [formControl]="checkBoxForm.get('shadowColor')"
+        />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorHoverCheckbox" class="po-mr-2 po-ml-1">Cor Hover: </label>
+        <input
+          type="color"
+          id="colorHoverCheckbox"
+          class="style-inputColor"
+          [formControl]="checkBoxForm.get('colorHover')"
+        />
+      </div>
+    </div>
+
+    <div [class.hide]="!switchView">
+      <po-divider p-label="Switch"></po-divider>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorSwitch" class="po-mr-2 po-ml-1">Cor principal: </label>
+        <input type="color" id="colorSwitch" class="style-inputColor" [formControl]="switchForm.get('color')" />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="colorIcon" class="po-mr-2 po-ml-1">Cor do icone: </label>
+        <input type="color" id="colorIcon" class="style-inputColor" [formControl]="switchForm.get('colorIcon')" />
+      </div>
+
+      <div class="container-space-between po-mb-1">
+        <label for="borderColorSwitch" class="po-mr-2 po-ml-1">Cor da borda: </label>
+        <input
+          type="color"
+          id="borderColorSwitch"
+          class="style-inputColor"
+          [formControl]="switchForm.get('borderColor')"
+        />
+      </div>
+    </div>
+  </po-widget>
+
+  <po-widget
+    [class.po-lg-12]="!botaoDefaultView && !botaoPrimaryView && !botaoLinkView && !checkboxView && !switchView"
+    class="po-lg-10 po-p-2"
+    [class.hide]="
+      !botaoDefaultView &&
+      !botaoPrimaryView &&
+      !botaoLinkView &&
+      !checkboxView &&
+      !switchView &&
+      !acordionView &&
+      !calendarView &&
+      !stepperView &&
+      !dynamicForView
+    "
+  >
+    <div [class.hide]="!botaoDefaultView && !botaoPrimaryView && !botaoLinkView && !checkboxView && !switchView">
+      <h2>Customizados</h2>
+      <br />
+    </div>
+    <div class="container-between">
+      <po-button [class.hide]="!botaoDefaultView" p-label="Text" #buttonD></po-button>
+
+      <po-button [class.hide]="!botaoPrimaryView" p-label="Text" p-type="primary" #buttonP></po-button>
+
+      <po-button [class.hide]="!botaoLinkView" p-label="Text" p-type="link" #buttonL></po-button>
+    </div>
+    <hr [class.hide]="!botaoDefaultView && !botaoPrimaryView && !botaoLinkView" />
+    <po-checkbox [class.hide]="!checkboxView" name="checkbox" p-label="PO Checkbox" #checkbox> </po-checkbox>
+    <hr [class.hide]="!checkboxView" />
+
+    <po-switch [class.hide]="!switchView" name="switch" p-label="PO Switch" #switch [(ngModel)]="switchSampleBuilder">
+    </po-switch>
+    <hr [class.hide]="!switchView" />
+
+    <div [class.hide]="!acordionView && !calendarView && !stepperView && !dynamicForView">
+      <h2>Customizados pela marca</h2>
+      <br />
+    </div>
+
+    <po-accordion [class.hide]="!acordionView">
+      <po-accordion-item p-label="PO Accordion 1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </po-accordion-item>
+      <po-accordion-item p-label="PO Accordion 2">
+        In rhoncus condimentum elit, egestas efficitur orci tincidunt a. Etiam ut neque
+      </po-accordion-item>
+    </po-accordion>
+    <hr [class.hide]="!acordionView" />
+
+    <po-calendar [class.hide]="!calendarView"></po-calendar>
+    <hr [class.hide]="!calendarView" />
+
+    <po-stepper [class.hide]="!stepperView">
+      <po-step p-label="Step 1"></po-step>
+      <po-step p-label="Step 2"></po-step>
+      <po-step p-label="Step 3"></po-step>
+    </po-stepper>
+    <hr [class.hide]="!stepperView" />
+
+    <po-dynamic-form [class.hide]="!dynamicForView" [p-fields]="fields"> </po-dynamic-form>
+  </po-widget>
+
+  <po-widget
+    class="po-lg-12 po-p-2"
+    *ngIf="
+      !botaoDefaultView &&
+      !botaoPrimaryView &&
+      !botaoLinkView &&
+      !checkboxView &&
+      !switchView &&
+      !acordionView &&
+      !calendarView &&
+      !stepperView &&
+      !dynamicForView
+    "
+  >
+    <div class="container" style="justify-content: center">
+      <span class="po-icon po-icon-info"></span>
+      <h2 class="po-ml-2">Nenhum componente selecionado</h2>
+    </div>
+  </po-widget>
+
+  <po-modal #viewCSSModal p-title="CSS">
+    <div class="po-row">
+      <po-button
+        class="po-sm-4 po-pr-0 po-pl-0 po-mb-1"
+        p-icon="po-icon-copy"
+        p-label="Copy"
+        (p-click)="copyToClipboard()"
+      >
+      </po-button>
+    </div>
+
+    <div class="tools-jumbotron">
+      <div id="fieldsCSS">
+        <pre [ngClass]="resultButtonD?.innerText.length ? '' : 'pre-none'" #resultButtonD></pre>
+        <pre [ngClass]="resultButtonP?.innerText.length ? '' : 'pre-none'" #resultButtonP></pre>
+        <pre [ngClass]="resultButtonL?.innerText.length ? '' : 'pre-none'" class="teste" #resultButtonL></pre>
+        <pre [ngClass]="resultCheckBox?.innerText.length ? '' : 'pre-none'" class="teste" #resultCheckBox></pre>
+        <pre [ngClass]="resultSwitch?.innerText.length ? '' : 'pre-none'" class="teste" #resultSwitch></pre>
+      </div>
+    </div>
+
+    <h3>
+      <a href="https://po-ui.io/guides/colors-customization" target="_blank">Customizando cores do tema padrão</a>
+    </h3>
+  </po-modal>
+
+  <po-page-slide #pageSlide p-title="Configuração">
+    <div class="po-row po-mb-2">
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Botão Default"
+        name="Botão Default"
+        [(ngModel)]="botaoDefaultView"
+      ></po-switch>
+
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Botão Primário"
+        name="Botão Primário"
+        [(ngModel)]="botaoPrimaryView"
+      ></po-switch>
+
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Botão Link"
+        name="Botão Link"
+        [(ngModel)]="botaoLinkView"
+      ></po-switch>
+
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Checkbox"
+        name="Checkbox"
+        [(ngModel)]="checkboxView"
+      ></po-switch>
+
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Switch"
+        name="Switch"
+        [(ngModel)]="switchView"
+      ></po-switch>
+
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Acordion"
+        name="Acordion"
+        [(ngModel)]="acordionView"
+      ></po-switch>
+
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Calendar"
+        name="Calendar"
+        [(ngModel)]="calendarView"
+      ></po-switch>
+
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Stepper"
+        name="Stepper"
+        [(ngModel)]="stepperView"
+      ></po-switch>
+
+      <po-switch
+        class="po-sm-6"
+        p-label-off="Escondido"
+        p-label-on="Visível"
+        p-label="Dynamic Form"
+        name="Dynamic Form"
+        [(ngModel)]="dynamicForView"
+      ></po-switch>
+    </div>
+  </po-page-slide>
+</po-page-default>
