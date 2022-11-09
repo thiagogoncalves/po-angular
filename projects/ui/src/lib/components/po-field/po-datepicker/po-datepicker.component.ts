@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { formatYear, isMobile, setYearFrom0To100, uuid } from '../../../utils/util';
+import { formatYear, isKeyCodeEnter, isKeyCodeSpace, isMobile, setYearFrom0To100, uuid } from '../../../utils/util';
 import { PoControlPositionService } from './../../../services/po-control-position/po-control-position.service';
 
 import { PoCalendarComponent } from '../../po-calendar/po-calendar.component';
@@ -274,6 +274,12 @@ export class PoDatepickerComponent extends PoDatepickerBaseComponent implements 
     } else {
       // Atualiza a posição do cursor ao clicar
       this.objMask.click($event);
+    }
+  }
+
+  onKeyPress(event: any) {
+    if (isKeyCodeEnter(event) || isKeyCodeSpace(event)) {
+      this.togglePicker();
     }
   }
 
