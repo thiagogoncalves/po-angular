@@ -150,6 +150,9 @@ export abstract class PoPageDynamicSearchBaseComponent {
   /** Título da página. */
   @Input('p-title') title: string;
 
+  // valor do input caso exista p-quick-search-value
+  @Input('p-quick-search-value') quickSearchValue: string;
+
   /**
    * @optional
    *
