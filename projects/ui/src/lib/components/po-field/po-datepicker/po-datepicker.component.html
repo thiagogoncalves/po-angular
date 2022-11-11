@@ -36,9 +36,9 @@
     </div>
     <po-button
       #iconDatepicker
-      role="button"
       p-icon="po-icon-calendar"
       p-kind="tertiary"
+      [p-disabled]="disabled || readonly"
       (keydown)="onKeyPress($event)"
       (p-click)="togglePicker()"
     >

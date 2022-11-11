@@ -18,6 +18,8 @@ import { PoControlPositionService } from './../../../services/po-control-positio
 import { PoCalendarComponent } from '../../po-calendar/po-calendar.component';
 import { PoDatepickerBaseComponent } from './po-datepicker-base.component';
 import { PoLanguageService } from '../../../services/po-language/po-language.service';
+import { PoDatepickerLiterals } from './po-datepicker.literals';
+import { PoButtonComponent } from '../../po-button/po-button.component';
 
 const poCalendarContentOffset = 8;
 const poCalendarPositionDefault = 'bottom-left';
@@ -70,7 +72,7 @@ const poCalendarPositionDefault = 'bottom-left';
 export class PoDatepickerComponent extends PoDatepickerBaseComponent implements AfterViewInit, OnDestroy {
   @ViewChild('calendar', { static: true }) calendar: PoCalendarComponent;
   @ViewChild('dialogPicker', { read: ElementRef, static: true }) dialogPicker: ElementRef;
-  @ViewChild('iconDatepicker', { read: ElementRef, static: true }) iconDatepicker: ElementRef;
+  @ViewChild('iconDatepicker') iconDatepicker: PoButtonComponent;
   @ViewChild('inp', { read: ElementRef, static: true }) inputEl: ElementRef;
 
   /** Rótulo do campo. */
@@ -83,6 +85,7 @@ export class PoDatepickerComponent extends PoDatepickerBaseComponent implements 
   hour: string;
   id = `po-datepicker[${uuid()}]`;
   visible: boolean = false;
+  literals: any;
 
   eventListenerFunction: () => void;
   eventResizeListener: () => void;
@@ -114,6 +117,10 @@ export class PoDatepickerComponent extends PoDatepickerBaseComponent implements 
   ) {
     super(languageService);
     this.el = el;
+    const language = languageService.getShortLanguage();
+    this.literals = {
+      ...PoDatepickerLiterals[language]
+    };
   }
 
   @HostListener('keyup', ['$event'])
@@ -151,6 +158,7 @@ export class PoDatepickerComponent extends PoDatepickerBaseComponent implements 
     if (this.autoFocus) {
       this.focus();
     }
+    this.renderer.setAttribute(this.iconDatepicker.buttonElement.nativeElement, 'aria-label', this.literals.open);
   }
 
   ngOnDestroy() {
@@ -215,7 +223,7 @@ export class PoDatepickerComponent extends PoDatepickerBaseComponent implements 
 
     if (
       (!this.dialogPicker.nativeElement.contains(event.target) || this.hasOverlayClass(event.target)) &&
-      !this.iconDatepicker.nativeElement.contains(event.target) &&
+      !this.iconDatepicker.buttonElement.nativeElement.contains(event.target) &&
       !this.hasAttrCalendar(event.target)
     ) {
       this.closeCalendar();
